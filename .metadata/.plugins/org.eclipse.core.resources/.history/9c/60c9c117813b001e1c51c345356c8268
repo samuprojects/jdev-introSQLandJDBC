@@ -1,0 +1,16 @@
+package conexaojdbc;
+
+import java.sql.Connection;
+
+public class SingleConnection {
+	
+	private static String banco = "";
+	private static String password = "";
+	private static String user = "";
+	private static Connection connection = null;
+	
+	private static void conectar() {
+		
+	}
+
+}

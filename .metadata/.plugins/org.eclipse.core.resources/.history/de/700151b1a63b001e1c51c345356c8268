@@ -1,0 +1,8 @@
+package model;
+
+public class Userposjava {
+	
+	private Long id;
+	
+
+}
