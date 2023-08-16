@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexaojdbc.SingleConnection;
+import model.Telefone;
 import model.Userposjava;
 
 public class UserPosDAO {
 	
-	@SuppressWarnings("unused")
 	private Connection connection;
 	
 	public UserPosDAO() {
@@ -20,18 +20,19 @@ public class UserPosDAO {
 		connection = SingleConnection.getConnection();
 	}
 	
-	public void salvar (Userposjava upserUserposjava) {
+	public void salvar (Userposjava userposjava) {
 		try {
-			String sql = "insert into userposjava (nome, email) values (?,?)";
+			String sql = "insert into userposjava (nome, email) values (?,?)"; // String do SQL
+			//Retorna o objeto da instrução
 			PreparedStatement insert = connection.prepareStatement(sql);
-			insert.setString(1, upserUserposjava.getNome());
-			insert.setString(2, upserUserposjava.getEmail());
-			insert.execute();
+			insert.setString(1, userposjava.getNome()); // Parâmetro sendo adicionado
+			insert.setString(2, userposjava.getEmail());
+			insert.execute(); // SQL sendo executado no banco de dados
 			connection.commit(); // salva no banco
 			
 		} catch (Exception e) {
 			try {
-				connection.rollback(); // reverte a operação
+				connection.rollback(); // reverte a operação caso tenha erros
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -39,10 +40,31 @@ public class UserPosDAO {
 		}		
 	}
 	
+	public void salvarTelefone(Telefone telefone) {
+		try {
+			
+			String sql = "INSERT INTO telefoneuser(numero, tipo, usuariopessoa) VALUES (?, ?, ?);";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, telefone.getNumero());
+			statement.setString(2, telefone.getTipo());
+			statement.setLong(3, telefone.getUsuario());
+			statement.execute();
+			connection.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}		
+	}
+	
 	public List<Userposjava> listar() throws Exception {
-		List<Userposjava> list = new ArrayList<Userposjava>();
+		List<Userposjava> list = new ArrayList<Userposjava>(); // Lista de retorno do método
 		
-		String sql = "select * from userposjava";
+		String sql = "select * from userposjava"; // Instrução SQL
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		ResultSet resultado = statement.executeQuery();
