@@ -66,9 +66,18 @@ public class TesteBancoJdbc {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}		
+	}
+	
+	@Test
+	public void initDeletar() {
+		try {
+			
+			UserPosDAO dao = new UserPosDAO();
+			dao.deletar(6L);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		
 	}
 
 }
