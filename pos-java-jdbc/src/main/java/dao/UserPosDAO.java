@@ -157,10 +157,10 @@ public class UserPosDAO {
 		public void deletar(Long id) {
 			try {
 				
-				String sql = "delete from userposjava where id = " + id;
-				PreparedStatement preparedStatement = connection.prepareStatement(sql);
-				preparedStatement.execute();
-				connection.commit();
+				String sql = "delete from userposjava where id = " + id; // SQL para delete
+				PreparedStatement preparedStatement = connection.prepareStatement(sql); // Compilando
+				preparedStatement.execute(); // Executando no banco
+				connection.commit(); // Efetuando o commit/gravando no banco de dados
 				
 			} catch (Exception e) {
 				try {
@@ -170,5 +170,30 @@ public class UserPosDAO {
 				}
 				e.printStackTrace();
 			}
+		}
+		
+		public void deleteFonesPorUser(Long idUser) {
+			
+			try {
+				
+				String sqlFone = "delete from telefoneuser where usuariopessoa =" + idUser;
+				String sqlUser = "delete from userposjava where id =" + idUser;
+				
+				PreparedStatement preparedStatement = connection.prepareStatement(sqlFone);
+				preparedStatement.executeUpdate();
+				connection.commit();
+				
+				preparedStatement = connection.prepareStatement(sqlUser);
+				preparedStatement.executeUpdate();
+				connection.commit();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}			
 		}
 }

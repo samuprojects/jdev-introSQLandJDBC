@@ -96,7 +96,7 @@ public class TesteBancoJdbc {
 	}
 	
 	@Test
-	public void testeCarregaFonesUser () {
+	public void testeCarregaFonesUser() {
 		
 		UserPosDAO dao = new UserPosDAO();
 		
@@ -104,10 +104,15 @@ public class TesteBancoJdbc {
 		
 		for (BeanUserFone beanUserFone : beanUserFones) {
 			System.out.println(beanUserFone);
-			System.out.println("--------------------------------------------------");
-			
-		}
+			System.out.println("--------------------------------------------------");			
+		}		
+	}
+	
+	@Test
+	public void testeDeleteUserFone() {
 		
+		UserPosDAO dao = new UserPosDAO();
+		dao.deleteFonesPorUser(8L);
 	}
 
 }
