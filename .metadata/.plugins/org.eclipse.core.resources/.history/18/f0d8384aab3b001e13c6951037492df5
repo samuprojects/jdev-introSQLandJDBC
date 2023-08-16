@@ -1,0 +1,31 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import conexaojdbc.SingleConnection;
+import model.Userposjava;
+
+public class UserPosDAO {
+	
+	@SuppressWarnings("unused")
+	private Connection connection;
+	
+	public UserPosDAO() {
+		
+		connection = SingleConnection.getConnection();
+	}
+	
+	public void salvar (Userposjava upserUserposjava) {
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		String sql = "insert into userposjava (id, nome, email) values (?,?,?)";
+		PreparedStatement inStatement = connection.prepareStatement(sql);
+		
+	}
+
+}
